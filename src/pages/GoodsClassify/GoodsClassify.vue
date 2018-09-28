@@ -40,7 +40,7 @@
       </el-table-column>
     </el-table>
     <Pagination :goods="goodsTypes" :total="totalLen"></Pagination>
-    <router-view :key="activeDate"></router-view>
+    <router-view></router-view>
   </section>
 </template>
 <script>
@@ -51,13 +51,20 @@
       //删除同类商品，在数据库和页面同时删除一类商品
       deleteRow(index, rows) {
         this.$router.push('/shop_manger/goodsclassify/classifydelete')
-        const type=rows[index].data[0].type;
-        const deleteArr=[];//存放需要删除同类商品的_id的数组
+        console.log(rows,index)
+        let type;
+        if(rows[index].data[0]){
+          type=rows[index].data[0].type;
+        }else{
+          type=rows[index].type
+        }
+
+        // const type=rows[index].type;
+        /*const deleteArr=[];//存放需要删除同类商品的_id的数组
         rows[index].data.forEach(item=>{
           deleteArr.push(item._id);
-        })
-        this.$store.dispatch('getClassifyDelete',{type,deleteArr})
-        this.activeDate=new Date();//根据时间戳来刷新没有实现
+        })*/
+        this.$store.dispatch('getClassifyDelete',type)
       },
       //在同类商品中添加一类商品
       addgoods(){
@@ -81,7 +88,6 @@
           classify:'',
         },
         formLabelWidth: '120px',
-
       }
     },
     computed:{
@@ -95,6 +101,9 @@
           this.$router.replace('/shop_manger/goodsclassify');
         },3)
       }
+      // '$route':function (route) {
+      //   this.$router.push('/shop_manger/goodsclassify');
+      // }
     }
   }
 </script>

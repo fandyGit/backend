@@ -48,7 +48,6 @@ export default {
       commit(RECEIVE_GOODS_LIST,{goodsList})
     }
   },
-
   //3获取所有的商品列表
   async getGoodsManger({commit}){
     //发送异步请求获取数据
@@ -67,11 +66,9 @@ export default {
     //发送异步添加数据请求
     const result = await reqGoodsAdd({type,gc_name,price,sale});
     if(result.code===0){
-     console.log(result.data)
       const good=result.data;
-      commit(RECEIVE_GOODS_ADD,good);//看看返回的是什么
+      commit(RECEIVE_GOODS_ADD,{good});//看看返回的是什么
     }
-
   },
   //6异步删除商品
   async getGoodsDelete({commit},obj){
@@ -94,13 +91,20 @@ export default {
     }
   },
   //8异步删除商品分类数据
-  async getClassifyDelete({commit},{type,deleteArr}){
+ /* async getClassifyDelete({commit},{type,deleteArr}){
     //发送异步更新用户信息数据
     const result = await deleteClassifyGoods(type);
     console.log(result)
     if(result.code===0){
       console.log(deleteArr);
       commit(RECEIVE_CLASSIFY_DELETE,deleteArr);//看看返回的是什么
+    }
+  },*/
+  async getClassifyDelete({commit},type){
+    //发送异步更新用户信息数据
+    const result = await deleteClassifyGoods(type);
+    if(result.code===0){
+      commit(RECEIVE_CLASSIFY_DELETE,{type});//看看返回的是什么
     }
   },
   //2.1获取商品分类列表

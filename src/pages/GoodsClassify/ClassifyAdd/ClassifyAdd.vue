@@ -48,15 +48,15 @@
       ...mapState(['goods'])
     },
     watch:{
-      //想监视数据改变的时候，当页面跳转的时候刷新，结果也没有实现
+      //想监视数据改变的时候，当页面跳转的时候刷新，结果没有实现
       goods:function (val,oldval) {
-        // this.$router.push('/shop_manger/goodsclassify');
         this.$router.push('/shop_manger');
         setTimeout(()=>{
           this.$router.push('/shop_manger/goodsclassify');
         },3)
       }
-    }
+
+    },
 
   }
 </script>

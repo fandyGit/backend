@@ -9,5 +9,4 @@ export default {
   goodsTypes:[],//商品的类型
   totalLen:0,//商品分类的总数量
   searchGoods:[],//搜索到的数据
-  activeDate:1,
 }

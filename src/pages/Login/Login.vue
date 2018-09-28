@@ -24,6 +24,7 @@
 
 <script>
   import {reqLogin} from "../../api";
+  import axios from 'axios'
   export default {
     data() {
       var validatepassword = (rule, value, callback) => {
@@ -61,7 +62,6 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             const {name,password}=this.ruleForm2;
-            console.log(name,password);
             reqLogin(name,password).then(res=>{
               if(res.code===0){
                window.localStorage.setItem("user",JSON.stringify(name));

@@ -46,7 +46,10 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row)">待修改</el-button>
+            :type="searchGoods[scope.$index].edit"
+            @click="handleEdit(scope.$index, scope.row)">
+            {{searchGoods[scope.$index].edit==='primary'?'已发布':'待修改'}}
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -61,12 +64,20 @@
   import {mapState} from 'vuex'
   export default {
     methods: {
+      //点击待修改按钮的时候，跳转路由，保存点击当前行的index,并且发送dispatch到actions请求
+      handleEdit(index,value){
+        console.log(index,value._id)
+        const id=value._id;
+        this.editIndex=index;
+        this.$router.push(`/shop_manger/goodslist/editgoods/${id}`)
+        console.log(this.editIndex);
+      },
     },
     components:{
       Pagination
     },
     computed:{
-      ...mapState(['searchGoods']),
+      ...mapState(['searchGoods','goodsList']),
 
     },
     data() {
